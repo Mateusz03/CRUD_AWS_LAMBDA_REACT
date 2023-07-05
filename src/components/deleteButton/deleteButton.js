@@ -17,6 +17,7 @@ const DeleteButton = () => {
             let arr = item;
             arr.splice(i, 1);
             setItem(arr);
+            document.getElementById(`${IsCheck[j].ID}Box`).checked = false;
             setIsCheck([]);
             deleteClick.current = true;
           }
