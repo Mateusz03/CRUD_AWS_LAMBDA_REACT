@@ -8,6 +8,8 @@ import {
 } from "./components/provider";
 import readApi from "./api/read.api";
 import Swal from "sweetalert2";
+import { StyledButtonContainer, StyledContainer } from "./App.styled";
+import GlobalStyle from "./globalStyle";
 
 export const CrudContext = createContext();
 
@@ -20,8 +22,10 @@ function App() {
     if (typeof item === "undefined") {
       (async () => {
         const data = await readApi({ type: "Scan" });
-        if (data.status === 200) setItem(data.data.Items);
-        else {
+
+        if (data.status === 200) {
+          setItem(data.data.Items);
+        } else {
           Swal.fire({ icon: "error", title: "Oops...", text: "Bad request!" });
         }
       })();
@@ -29,17 +33,20 @@ function App() {
   }, [item]);
 
   return (
-    <div className="App">
+    <StyledContainer>
+      <GlobalStyle />
       <CrudContext.Provider
         value={{ item, setItem, IsCheck, setIsCheck, checkAll }}
       >
-        <AddButton />
-        <DeleteButton />
-        <UpdateButton />
-        <SelectAll />
+        <StyledButtonContainer>
+          <AddButton />
+          <DeleteButton />
+          <UpdateButton />
+          <SelectAll />
+        </StyledButtonContainer>
         <Table />
       </CrudContext.Provider>
-    </div>
+    </StyledContainer>
   );
 }
 

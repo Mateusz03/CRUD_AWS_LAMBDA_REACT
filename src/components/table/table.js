@@ -6,6 +6,7 @@ import {
   StyledColumnID,
   StyledColumnValue,
   StyledContainer,
+  StyledCheckBoxContainer,
 } from "./table.styled";
 import { checkFunction } from "../../functions/provider.function";
 import { CrudContext } from "../../App";
@@ -27,13 +28,15 @@ const Table = () => {
             <StyledColumn key={i}>
               <StyledColumnID>{e.ID}</StyledColumnID>
               <StyledColumnValue item={"true"}>{e.value}</StyledColumnValue>
-              <StyledCheckBox
-                id={e.ID + "Box"}
-                type="checkbox"
-                onChange={(element) => {
-                  handleCheck(element, e);
-                }}
-              ></StyledCheckBox>
+              <StyledCheckBoxContainer>
+                <StyledCheckBox
+                  id={e.ID + "Box"}
+                  type="checkbox"
+                  onChange={(element) => {
+                    handleCheck(element, e);
+                  }}
+                ></StyledCheckBox>
+              </StyledCheckBoxContainer>
             </StyledColumn>
           );
         })
@@ -41,10 +44,12 @@ const Table = () => {
 
   return (
     <StyledContainer>
-      <StyledColumn>
+      <StyledColumn style={{ borderTop: "1px solid #2c3333" }}>
         <StyledColumnID>ID</StyledColumnID>
         <StyledColumnValue>Value</StyledColumnValue>
-        <StyledColumnValue item={"false"}>Select</StyledColumnValue>
+        <StyledColumnValue item={"false"} type="Select">
+          Select
+        </StyledColumnValue>
       </StyledColumn>
       {catalog}
     </StyledContainer>

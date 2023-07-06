@@ -13,6 +13,7 @@ const updateFunction = async (items) => {
       showCancelButton: true,
       confirmButtonText: "Update",
       cancelButtonColor: "#F93B55",
+      showLoaderOnConfirm: true,
       preConfirm: async (newValue) => {
         await updateApi({ ID: items[0].ID, value: newValue })
           .then((data) => {

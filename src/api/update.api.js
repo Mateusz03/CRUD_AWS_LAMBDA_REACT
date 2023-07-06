@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const updateApi = async (item) => {
-  const url = `${process.env.REACT_APP_URL}update`;
+  const url =
+    process.env.REACT_APP_ENVIROMENT === "dev"
+      ? "http://localhost:2137/update"
+      : `${process.env.REACT_APP_URL}update`;
+
   try {
     const data = await axios.post(url, {
       ID: item?.ID,

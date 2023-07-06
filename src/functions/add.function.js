@@ -12,6 +12,7 @@ const addFunction = async () => {
     showCancelButton: true,
     confirmButtonText: "Update",
     cancelButtonColor: "#F93B55",
+    showLoaderOnConfirm: true,
     preConfirm: async (newValue) => {
       try {
         const response = await createApi({ value: newValue });
@@ -21,13 +22,15 @@ const addFunction = async () => {
           data = { status: "Success", value: newValue, ID: response.ID };
         }
       } catch (err) {
-        data = { error: err };
+        Swal.showValidationMessage(`Request error`);
       }
     },
     allowOutsideClick: async () => !Swal.isLoading(),
   }).then((result) => {
     if (result.isConfirmed) {
       return data;
+    } else if (result.dismiss === "cancel") {
+      return;
     } else {
       Swal.fire({
         icon: "error",

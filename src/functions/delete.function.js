@@ -9,18 +9,28 @@ const deleteFunction = async (items) => {
       itemsArr.push({ ID: e.ID });
       return "Ok";
     });
-
-    await deleteApi(itemsArr)
-      .then((data) => {
-        if (data.error) {
-          Swal.showValidationMessage(`Delete error`);
-        } else {
-          result = { status: "Success" };
-        }
-      })
-      .catch((err) => {
-        Swal.showValidationMessage(`Request error`);
-      });
+    await Swal.fire({
+      icon: "warning",
+      title: "Delete",
+      text: "Are you sure you want to delete these values?",
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      cancelButtonColor: "#F93B55",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        await deleteApi(itemsArr)
+          .then((data) => {
+            if (data.error) {
+              Swal.showValidationMessage(`Delete error`);
+            } else {
+              result = { status: "Success" };
+            }
+          })
+          .catch((err) => {
+            Swal.showValidationMessage(`Request error`);
+          });
+      },
+    });
     return result;
   } else {
     Swal.fire({
